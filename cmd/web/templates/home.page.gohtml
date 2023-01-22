@@ -1,0 +1,40 @@
+{{template "base" .}}
+
+{{define "content" }}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h1 class="mt-5">Home</h1>
+                <hr>
+                <a class="btn btn-outline-secondary" href="/login">Login</a>
+                <a class="btn btn-outline-secondary" href="/register">Register</a>
+                <form>
+                <input type="text" id="search-input" placeholder="Search...">
+                <button type="button" onclick="sendSearch()">Search</button>
+                </form>
+                <div id="response"></div>
+                <pre>{{.Data}}</pre>
+            </div>
+
+        </div>
+    </div>
+     <div>{{.Data}}</div>
+{{end}}
+
+{{define "js"}}
+    <script>
+function sendSearch() {
+  var searchInput = document.getElementById("search-input").value;
+  // send the search input to the Go backend using the fetch API
+  fetch("/search?q=" + searchInput)
+    .then(response => response.json())
+    .then(data => {
+      // handle the response from the Go backend
+    })
+    .catch(error => {
+      console.error("Error:", error);
+    });
+}
+
+    </script>
+{{end}}
